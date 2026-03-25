@@ -12,7 +12,6 @@ export default function Home() {
   const [selectedMedia, setSelectedMedia] = useState<any>(null);
   const name = 'Нұрғазы';
 
-  // 10-second timer to transition from 'timer' to 'birthday'
   useEffect(() => {
     if (step === 'timer') {
       if (timeLeft > 0) {
@@ -30,7 +29,6 @@ export default function Home() {
     }
   }, [step, timeLeft, playMusic]);
 
-  // Real date countdown timer when in 'birthday' step
   useEffect(() => {
     if (step === 'birthday') {
       const targetDate = new Date('2026-03-26T15:00:00').getTime();
@@ -41,7 +39,7 @@ export default function Home() {
 
         if (difference <= 0) {
           setTimeRemaining({ days: 0, hours: 0, minutes: 0, seconds: 0, total: 0 });
-          return true; // indicates timer finished
+          return true;
         }
 
         setTimeRemaining({
@@ -170,49 +168,49 @@ export default function Home() {
             ))}
           </div>
 
-          <div className='z-20 glass-panel rounded-[2.5rem] p-8 md:p-14 flex flex-col items-center text-center w-[90%] max-w-2xl shadow-[0_0_60px_rgba(0,0,0,0.4)] animate-fade-in relative overflow-hidden group mt-10'>
-            <div className='absolute top-0 left-0 w-full h-[40%] bg-gradient-to-b from-white/10 to-transparent pointer-events-none rounded-t-[2.5rem]' />
+          <div className='z-20 glass-panel rounded-[2rem] md:rounded-[2.5rem] p-6 md:p-14 flex flex-col items-center text-center w-[95%] sm:w-[90%] max-w-2xl shadow-[0_0_60px_rgba(0,0,0,0.4)] animate-fade-in relative overflow-hidden group mt-6 md:mt-10'>
+            <div className='absolute top-0 left-0 w-full h-[40%] bg-gradient-to-b from-white/10 to-transparent pointer-events-none rounded-t-[2rem] md:rounded-t-[2.5rem]' />
             
-            <h1 className='text-4xl md:text-5xl lg:text-7xl font-extrabold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-pink-300 via-purple-200 to-cyan-300 drop-shadow-[0_2px_10px_rgba(255,255,255,0.3)] leading-tight z-10'>
-               С днём рождения, <br /> <span className='text-white drop-shadow-[0_0_15px_rgba(218,112,214,0.8)] mt-2 inline-block'>{name}!</span>
+            <h1 className='text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-extrabold mb-4 md:mb-6 text-transparent bg-clip-text bg-gradient-to-r from-pink-300 via-purple-200 to-cyan-300 drop-shadow-[0_2px_10px_rgba(255,255,255,0.3)] leading-tight z-10'>
+               С днём рождения, <br /> <span className='text-white drop-shadow-[0_0_15px_rgba(218,112,214,0.8)] mt-1 md:mt-2 inline-block'>{name}!</span>
             </h1>
-            <p className='text-lg md:text-2xl text-slate-200 mb-6 tracking-wide font-light z-10'>
+            <p className='text-sm sm:text-base md:text-2xl text-slate-200 mb-5 md:mb-6 tracking-wide font-light z-10'>
               Этот сайт был создан только для тебя и удалится через: ✨
             </p>
 
             {timeRemaining.total > 0 && (
-              <div className='z-10 mb-8 flex flex-col items-center bg-white/5 px-6 py-4 rounded-2xl border border-white/10'>
-                <div className='flex gap-3 md:gap-5 text-center'>
+              <div className='z-10 mb-6 md:mb-8 flex flex-col items-center bg-white/5 px-4 md:px-6 py-3 md:py-4 rounded-xl md:rounded-2xl border border-white/10'>
+                <div className='flex gap-2 sm:gap-3 md:gap-5 text-center'>
                   {timeRemaining.days > 0 && (
                     <>
                       <div className='flex flex-col'>
-                        <span className='text-xl md:text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-br from-cyan-300 via-white to-pink-300'>
+                        <span className='text-lg md:text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-br from-cyan-300 via-white to-pink-300'>
                           {String(timeRemaining.days).padStart(2, '0')}
                         </span>
-                        <span className='text-[10px] md:text-xs text-cyan-100 mt-1 uppercase tracking-widest'>Дней</span>
+                        <span className='text-[8px] md:text-xs text-cyan-100 mt-1 uppercase tracking-widest'>Дней</span>
                       </div>
-                      <span className='text-xl md:text-3xl font-bold text-white/30'>:</span>
+                      <span className='text-lg md:text-3xl font-bold text-white/30'>:</span>
                     </>
                   )}
                   <div className='flex flex-col'>
-                    <span className='text-xl md:text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-br from-cyan-300 via-white to-pink-300'>
+                    <span className='text-lg md:text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-br from-cyan-300 via-white to-pink-300'>
                       {String(timeRemaining.hours).padStart(2, '0')}
                     </span>
-                    <span className='text-[10px] md:text-xs text-cyan-100 mt-1 uppercase tracking-widest'>Часов</span>
+                    <span className='text-[8px] md:text-xs text-cyan-100 mt-1 uppercase tracking-widest'>Часов</span>
                   </div>
-                  <span className='text-xl md:text-3xl font-bold text-white/30'>:</span>
+                  <span className='text-lg md:text-3xl font-bold text-white/30'>:</span>
                   <div className='flex flex-col'>
-                    <span className='text-xl md:text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-br from-cyan-300 via-white to-pink-300'>
+                    <span className='text-lg md:text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-br from-cyan-300 via-white to-pink-300'>
                       {String(timeRemaining.minutes).padStart(2, '0')}
                     </span>
-                    <span className='text-[10px] md:text-xs text-cyan-100 mt-1 uppercase tracking-widest'>Минут</span>
+                    <span className='text-[8px] md:text-xs text-cyan-100 mt-1 uppercase tracking-widest'>Минут</span>
                   </div>
-                  <span className='text-xl md:text-3xl font-bold text-white/30'>:</span>
+                  <span className='text-lg md:text-3xl font-bold text-white/30'>:</span>
                   <div className='flex flex-col'>
-                    <span className='text-xl md:text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-br from-cyan-300 via-white to-pink-300'>
+                    <span className='text-lg md:text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-br from-cyan-300 via-white to-pink-300'>
                       {String(timeRemaining.seconds).padStart(2, '0')}
                     </span>
-                    <span className='text-[10px] md:text-xs text-cyan-100 mt-1 uppercase tracking-widest'>Секунд</span>
+                    <span className='text-[8px] md:text-xs text-cyan-100 mt-1 uppercase tracking-widest'>Секунд</span>
                   </div>
                 </div>
               </div>
@@ -220,7 +218,7 @@ export default function Home() {
 
             <button 
               onClick={() => setShowModal(true)}
-              className='px-12 md:px-16 py-4 md:py-5 glass hover:bg-white/20 rounded-full font-bold text-xl md:text-2xl outline-none transition-all hover:scale-105 active:scale-95 shadow-[0_0_25px_rgba(218,112,214,0.4)] text-white z-10 cursor-pointer'
+              className='px-8 sm:px-10 md:px-16 py-3 md:py-5 glass hover:bg-white/20 rounded-full font-bold text-base md:text-2xl outline-none transition-all hover:scale-105 active:scale-95 shadow-[0_0_25px_rgba(218,112,214,0.4)] text-white z-10 cursor-pointer'
             >
               Открыть сюрприз
             </button>
