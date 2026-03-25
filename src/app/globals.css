@@ -52,14 +52,14 @@ body {
 }
 
 /* Float animations for floating elements */
-.float-1 { animation: float-up-down 7s ease-in-out infinite; }
-.float-2 { animation: float-up-down 9s ease-in-out infinite 1s; }
-.float-3 { animation: float-up-down 8s ease-in-out infinite 2s; }
-.float-4 { animation: float-up-down 10s ease-in-out infinite 0.5s; }
+.float-1 { animation: float-up-infinite 25s linear infinite; animation-delay: -5s; }
+.float-2 { animation: float-up-infinite 30s linear infinite; animation-delay: -18s; }
+.float-3 { animation: float-up-infinite 22s linear infinite; animation-delay: -10s; }
+.float-4 { animation: float-up-infinite 35s linear infinite; animation-delay: -25s; }
 
-@keyframes float-up-down {
-  0%, 100% { transform: translateY(0) rotate(-2deg); }
-  50% { transform: translateY(-30px) rotate(3deg); }
+@keyframes float-up-infinite {
+  0% { transform: translateY(120vh) rotate(-5deg); }
+  100% { transform: translateY(-150vh) rotate(5deg); }
 }
 
 /* Realistic Balloon styling */

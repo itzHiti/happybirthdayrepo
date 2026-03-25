@@ -105,9 +105,9 @@ export default function Home() {
 
       {step === 'birthday' && (
         <>
-          <div className='absolute inset-0 pointer-events-none z-30 overflow-hidden'>
+          <div className='absolute inset-0 pointer-events-none z-10 overflow-hidden'>
             {mediaItems.map((media) => (
-              <div key={media.id} className={`absolute flex flex-col items-center ${media.class}`} style={{ left: media.left, top: media.top }}>
+              <div key={media.id} className={`absolute flex flex-col items-center opacity-70 ${media.class}`} style={{ left: media.left, top: media.top }}>
                 <div className='balloon shadow-xl' style={{ backgroundColor: media.color, zIndex: 30 }}>
                   <div className='balloon-shine'></div>
                 </div>
