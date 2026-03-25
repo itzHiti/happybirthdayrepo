@@ -17,9 +17,6 @@ export default function Home() {
       if (timeLeft > 0) {
         const timerId = setTimeout(() => {
           setTimeLeft(timeLeft - 1);
-          if (timeLeft === 6 && !playMusic) {
-            setPlayMusic(true);
-          }
         }, 1000);
         return () => clearTimeout(timerId);
       } else {
@@ -27,11 +24,11 @@ export default function Home() {
         launchConfetti();
       }
     }
-  }, [step, timeLeft, playMusic]);
+  }, [step, timeLeft]);
 
   useEffect(() => {
     if (step === 'birthday') {
-      const targetDate = new Date('2026-03-26T15:00:00').getTime();
+      const targetDate = new Date('2026-03-27T00:00:00').getTime();
 
       const updateTimer = () => {
         const now = Date.now();
@@ -86,6 +83,7 @@ export default function Home() {
 
   const startTimer = () => {
     setStep('timer');
+    setPlayMusic(true);
   };
 
   const mediaItems = [
@@ -158,9 +156,9 @@ export default function Home() {
                   onClick={() => setSelectedMedia(media)}
                 >
                   {media.type === 'video' ? (
-                    <video src={media.src} autoPlay loop muted playsInline className='w-20 h-28 md:w-40 md:h-52 object-cover rounded shadow-inner bg-black/40' />
+                    <video src={media.src} autoPlay loop muted playsInline className='w-28 h-40 sm:w-32 sm:h-44 md:w-48 md:h-64 object-cover rounded shadow-inner bg-black/40' />
                   ) : (
-                    <img src={media.src} alt='Memory Frame' className='w-24 h-32 md:w-44 md:h-56 object-cover rounded shadow-inner bg-black/40'
+                    <img src={media.src} alt='Memory Frame' className='w-28 h-40 sm:w-32 sm:h-44 md:w-48 md:h-64 object-cover rounded shadow-inner bg-black/40'
                          onError={(e) => { e.currentTarget.src = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4xKSIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMiIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjkpIiBkeT0iLjNlbSIgdGV4dC1hbmNob3I9Im1pZGRsZSI+0JrQsNGA0YLQuNC90LrQsDwvdGV4dD48L3N2Zz4='; }} />
                   )}
                 </div>
@@ -168,49 +166,49 @@ export default function Home() {
             ))}
           </div>
 
-          <div className='z-20 glass-panel rounded-[2rem] md:rounded-[2.5rem] p-5 md:p-14 flex flex-col items-center text-center w-[85%] sm:w-[80%] md:w-[90%] max-w-2xl shadow-[0_0_60px_rgba(0,0,0,0.4)] animate-fade-in relative overflow-hidden group mt-6 md:mt-10'>
+          <div className='z-20 glass-panel rounded-[2rem] md:rounded-[2.5rem] p-5 md:p-14 flex flex-col items-center text-center w-[90%] sm:w-[85%] md:w-[90%] max-w-2xl shadow-[0_0_60px_rgba(0,0,0,0.4)] animate-fade-in relative overflow-hidden group mt-6 md:mt-10'>
             <div className='absolute top-0 left-0 w-full h-[40%] bg-gradient-to-b from-white/10 to-transparent pointer-events-none rounded-t-[2rem] md:rounded-t-[2.5rem]' />
             
-            <h1 className='text-2xl sm:text-3xl md:text-5xl lg:text-7xl font-extrabold mb-4 md:mb-6 text-transparent bg-clip-text bg-gradient-to-r from-pink-300 via-purple-200 to-cyan-300 drop-shadow-[0_2px_10px_rgba(255,255,255,0.3)] leading-tight z-10'>
+            <h1 className='text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold mb-4 md:mb-6 text-transparent bg-clip-text bg-gradient-to-r from-pink-300 via-purple-200 to-cyan-300 drop-shadow-[0_2px_10px_rgba(255,255,255,0.3)] leading-tight z-10'>
                С днём рождения, <br /> <span className='text-white drop-shadow-[0_0_15px_rgba(218,112,214,0.8)] mt-1 md:mt-2 inline-block'>{name}!</span>
             </h1>
-            <p className='text-xs sm:text-sm md:text-2xl text-slate-200 mb-5 md:mb-6 tracking-wide font-light z-10'>
+            <p className='text-sm sm:text-base md:text-2xl text-slate-200 mb-5 md:mb-6 tracking-wide font-light z-10'>
               Этот сайт был создан только для тебя и удалится через: ✨
             </p>
 
             {timeRemaining.total > 0 && (
-              <div className='z-10 mb-6 md:mb-8 flex flex-col items-center bg-white/5 px-3 md:px-6 py-2.5 md:py-4 rounded-xl md:rounded-2xl border border-white/10'>
+              <div className='z-10 mb-6 md:mb-8 flex flex-col items-center bg-white/5 px-4 md:px-6 py-3 md:py-4 rounded-xl md:rounded-2xl border border-white/10'>
                 <div className='flex gap-2 sm:gap-3 md:gap-5 text-center'>
                   {timeRemaining.days > 0 && (
                     <>
                       <div className='flex flex-col'>
-                        <span className='text-base md:text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-br from-cyan-300 via-white to-pink-300'>
+                        <span className='text-2xl md:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-br from-cyan-300 via-white to-pink-300'>
                           {String(timeRemaining.days).padStart(2, '0')}
                         </span>
-                        <span className='text-[8px] md:text-xs text-cyan-100 mt-1 uppercase tracking-widest'>Дней</span>
+                        <span className='text-[10px] md:text-xs text-cyan-100 mt-1 uppercase tracking-widest'>Дней</span>
                       </div>
-                      <span className='text-base md:text-3xl font-bold text-white/30'>:</span>
+                      <span className='text-2xl md:text-4xl font-bold text-white/30'>:</span>
                     </>
                   )}
                   <div className='flex flex-col'>
-                    <span className='text-base md:text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-br from-cyan-300 via-white to-pink-300'>
+                    <span className='text-2xl md:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-br from-cyan-300 via-white to-pink-300'>
                       {String(timeRemaining.hours).padStart(2, '0')}
                     </span>
-                    <span className='text-[8px] md:text-xs text-cyan-100 mt-1 uppercase tracking-widest'>Часов</span>
+                    <span className='text-[10px] md:text-xs text-cyan-100 mt-1 uppercase tracking-widest'>Часов</span>
                   </div>
-                  <span className='text-base md:text-3xl font-bold text-white/30'>:</span>
+                  <span className='text-2xl md:text-4xl font-bold text-white/30'>:</span>
                   <div className='flex flex-col'>
-                    <span className='text-base md:text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-br from-cyan-300 via-white to-pink-300'>
+                    <span className='text-2xl md:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-br from-cyan-300 via-white to-pink-300'>
                       {String(timeRemaining.minutes).padStart(2, '0')}
                     </span>
-                    <span className='text-[8px] md:text-xs text-cyan-100 mt-1 uppercase tracking-widest'>Минут</span>
+                    <span className='text-[10px] md:text-xs text-cyan-100 mt-1 uppercase tracking-widest'>Минут</span>
                   </div>
-                  <span className='text-base md:text-3xl font-bold text-white/30'>:</span>
+                  <span className='text-2xl md:text-4xl font-bold text-white/30'>:</span>
                   <div className='flex flex-col'>
-                    <span className='text-base md:text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-br from-cyan-300 via-white to-pink-300'>
+                    <span className='text-2xl md:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-br from-cyan-300 via-white to-pink-300'>
                       {String(timeRemaining.seconds).padStart(2, '0')}
                     </span>
-                    <span className='text-[8px] md:text-xs text-cyan-100 mt-1 uppercase tracking-widest'>Секунд</span>
+                    <span className='text-[10px] md:text-xs text-cyan-100 mt-1 uppercase tracking-widest'>Секунд</span>
                   </div>
                 </div>
               </div>
@@ -218,7 +216,7 @@ export default function Home() {
 
             <button 
               onClick={() => setShowModal(true)}
-              className='px-6 md:px-16 py-2.5 md:py-5 glass hover:bg-white/20 rounded-full font-bold text-sm md:text-2xl outline-none transition-all hover:scale-105 active:scale-95 shadow-[0_0_25px_rgba(218,112,214,0.4)] text-white z-10 cursor-pointer'
+              className='px-8 md:px-16 py-3.5 md:py-5 glass hover:bg-white/20 rounded-full font-bold text-lg md:text-2xl outline-none transition-all hover:scale-105 active:scale-95 shadow-[0_0_25px_rgba(218,112,214,0.4)] text-white z-10 cursor-pointer'
             >
               Открыть сюрприз
             </button>
