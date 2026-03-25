@@ -6,10 +6,12 @@ import confetti from 'canvas-confetti';
 export default function Home() {
   const [step, setStep] = useState<'start' | 'timer' | 'birthday'>('start');
   const [timeLeft, setTimeLeft] = useState(10);
+  const [timeRemaining, setTimeRemaining] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0, total: 0 });
   const [showModal, setShowModal] = useState(false);
   const [playMusic, setPlayMusic] = useState(false);
   const name = 'Нұрғазы';
 
+  // 10-second timer to transition from 'timer' to 'birthday'
   useEffect(() => {
     if (step === 'timer') {
       if (timeLeft > 0) {
@@ -26,6 +28,42 @@ export default function Home() {
       }
     }
   }, [step, timeLeft, playMusic]);
+
+  // Real date countdown timer when in 'birthday' step
+  useEffect(() => {
+    if (step === 'birthday') {
+      const targetDate = new Date('2026-03-26T15:00:00').getTime();
+
+      const updateTimer = () => {
+        const now = Date.now();
+        const difference = targetDate - now;
+
+        if (difference <= 0) {
+          setTimeRemaining({ days: 0, hours: 0, minutes: 0, seconds: 0, total: 0 });
+          return true; // indicates timer finished
+        }
+
+        setTimeRemaining({
+          days: Math.floor(difference / (1000 * 60 * 60 * 24)),
+          hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
+          minutes: Math.floor((difference / 1000 / 60) % 60),
+          seconds: Math.floor((difference / 1000) % 60),
+          total: difference
+        });
+        return false;
+      };
+
+      const isFinished = updateTimer();
+
+      if (!isFinished) {
+        const intervalId = setInterval(() => {
+          const finished = updateTimer();
+          if (finished) clearInterval(intervalId);
+        }, 1000);
+        return () => clearInterval(intervalId);
+      }
+    }
+  }, [step]);
 
   const launchConfetti = () => {
     const duration = 5 * 1000;
@@ -130,9 +168,47 @@ export default function Home() {
             <h1 className='text-4xl md:text-5xl lg:text-7xl font-extrabold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-pink-300 via-purple-200 to-cyan-300 drop-shadow-[0_2px_10px_rgba(255,255,255,0.3)] leading-tight z-10'>
                С днём рождения, <br /> <span className='text-white drop-shadow-[0_0_15px_rgba(218,112,214,0.8)] mt-2 inline-block'>{name}!</span>
             </h1>
-            <p className='text-lg md:text-2xl text-slate-200 mb-10 tracking-wide font-light z-10'>
-              Самый особенный день настал ✨
+            <p className='text-lg md:text-2xl text-slate-200 mb-6 tracking-wide font-light z-10'>
+              Этот сайт был создан только для тебя и удалится через: ✨
             </p>
+
+            {timeRemaining.total > 0 && (
+              <div className='z-10 mb-8 flex flex-col items-center bg-white/5 px-6 py-4 rounded-2xl border border-white/10'>
+                <div className='flex gap-3 md:gap-5 text-center'>
+                  {timeRemaining.days > 0 && (
+                    <>
+                      <div className='flex flex-col'>
+                        <span className='text-xl md:text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-br from-cyan-300 via-white to-pink-300'>
+                          {String(timeRemaining.days).padStart(2, '0')}
+                        </span>
+                        <span className='text-[10px] md:text-xs text-cyan-100 mt-1 uppercase tracking-widest'>Дней</span>
+                      </div>
+                      <span className='text-xl md:text-3xl font-bold text-white/30'>:</span>
+                    </>
+                  )}
+                  <div className='flex flex-col'>
+                    <span className='text-xl md:text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-br from-cyan-300 via-white to-pink-300'>
+                      {String(timeRemaining.hours).padStart(2, '0')}
+                    </span>
+                    <span className='text-[10px] md:text-xs text-cyan-100 mt-1 uppercase tracking-widest'>Часов</span>
+                  </div>
+                  <span className='text-xl md:text-3xl font-bold text-white/30'>:</span>
+                  <div className='flex flex-col'>
+                    <span className='text-xl md:text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-br from-cyan-300 via-white to-pink-300'>
+                      {String(timeRemaining.minutes).padStart(2, '0')}
+                    </span>
+                    <span className='text-[10px] md:text-xs text-cyan-100 mt-1 uppercase tracking-widest'>Минут</span>
+                  </div>
+                  <span className='text-xl md:text-3xl font-bold text-white/30'>:</span>
+                  <div className='flex flex-col'>
+                    <span className='text-xl md:text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-br from-cyan-300 via-white to-pink-300'>
+                      {String(timeRemaining.seconds).padStart(2, '0')}
+                    </span>
+                    <span className='text-[10px] md:text-xs text-cyan-100 mt-1 uppercase tracking-widest'>Секунд</span>
+                  </div>
+                </div>
+              </div>
+            )}
 
             <button 
               onClick={() => setShowModal(true)}
