@@ -53,9 +53,17 @@ export default function Home() {
 
   const mediaItems = [
     { id: 1, type: 'img', src: '/assets/photo_2026-03-25_03-00-10.jpg', color: '#ff4da6', class: 'float-1', left: '8%', top: '5%' },
-    { id: 2, type: 'video', src: '/assets/doc_2026-03-25_16-24-14.mp4', color: '#33ccff', class: 'float-2', left: '65%', top: '10%' },
-    { id: 3, type: 'img', src: '/assets/doc_2026-03-25_16-24-19.mp4', color: '#ffcc00', class: 'float-3', left: '15%', top: '50%' },
+    { id: 2, type: 'video', src: '/assets/doc_2026-03-25_16-24-12.mp4', color: '#33ccff', class: 'float-2', left: '65%', top: '10%' },
+    { id: 3, type: 'video', src: '/assets/doc_2026-03-25_16-24-19.mp4', color: '#ffcc00', class: 'float-3', left: '15%', top: '50%' },
     { id: 4, type: 'img', src: '/assets/photo_2026-03-25_16-23-49.jpg', color: '#99ff33', class: 'float-4', left: '72%', top: '45%' },
+    { id: 5, type: 'img', src: '/assets/photo_2026-03-25_16-23-52.jpg', color: '#ff7f50', class: 'float-1', left: '5%', top: '80%' },
+    { id: 6, type: 'img', src: '/assets/photo_2026-03-25_16-23-55.jpg', color: '#8a2be2', class: 'float-2', left: '80%', top: '75%' },
+    { id: 7, type: 'img', src: '/assets/photo_2026-03-25_16-23-57.jpg', color: '#00fa9a', class: 'float-3', left: '20%', top: '25%' },
+    { id: 8, type: 'img', src: '/assets/photo_2026-03-25_16-24-00.jpg', color: '#ffb6c1', class: 'float-4', left: '85%', top: '25%' },
+    { id: 9, type: 'img', src: '/assets/photo_2026-03-25_16-24-03.jpg', color: '#00ffff', class: 'float-1', left: '10%', top: '70%' },
+    { id: 10, type: 'img', src: '/assets/photo_2026-03-25_16-24-05.jpg', color: '#ff4500', class: 'float-2', left: '75%', top: '60%' },
+    { id: 11, type: 'video', src: '/assets/video_2026-03-25_16-24-08.mp4', color: '#1e90ff', class: 'float-3', left: '25%', top: '80%' },
+    { id: 12, type: 'video', src: '/assets/video_2026-03-25_16-24-16.mp4', color: '#adff2f', class: 'float-4', left: '60%', top: '85%' },
   ];
 
   return (
@@ -97,18 +105,18 @@ export default function Home() {
 
       {step === 'birthday' && (
         <>
-          <div className='absolute inset-0 pointer-events-none z-10 overflow-hidden'>
+          <div className='absolute inset-0 pointer-events-none z-30 overflow-hidden'>
             {mediaItems.map((media) => (
               <div key={media.id} className={`absolute flex flex-col items-center ${media.class}`} style={{ left: media.left, top: media.top }}>
                 <div className='balloon shadow-xl' style={{ backgroundColor: media.color, zIndex: 30 }}>
                   <div className='balloon-shine'></div>
                 </div>
-                <div className='w-[1px] h-16 md:h-24 bg-gradient-to-b from-white/60 to-white/20 z-10'></div>
-                <div className='p-2 glass rounded-sm shadow-2xl transform rotate-3 hover:rotate-0 transition-transform pointer-events-auto z-20 mt-0 bg-white/20 backdrop-blur-md border border-white/30 pb-6 md:pb-8 origin-top'>
+                <div className='w-[1px] h-12 md:h-24 bg-gradient-to-b from-white/60 to-white/20 z-10'></div>
+                <div className='p-1.5 md:p-2 glass rounded-sm shadow-2xl transform rotate-3 hover:rotate-0 transition-transform pointer-events-auto z-20 mt-0 bg-white/20 backdrop-blur-md border border-white/30 pb-4 md:pb-8 origin-top'>
                   {media.type === 'video' ? (
-                    <video src={media.src} autoPlay loop muted playsInline className='w-24 h-32 md:w-40 md:h-52 object-cover rounded shadow-inner bg-black/40' />
+                    <video src={media.src} autoPlay loop muted playsInline className='w-20 h-28 md:w-40 md:h-52 object-cover rounded shadow-inner bg-black/40' />
                   ) : (
-                    <img src={media.src} alt='Memory Frame' className='w-24 h-32 md:w-40 md:h-52 object-cover rounded shadow-inner bg-black/40'
+                    <img src={media.src} alt='Memory Frame' className='w-20 h-28 md:w-40 md:h-52 object-cover rounded shadow-inner bg-black/40'
                          onError={(e) => { e.currentTarget.src = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4xKSIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMiIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjkpIiBkeT0iLjNlbSIgdGV4dC1hbmNob3I9Im1pZGRsZSI+0JrQsNGA0YLQuNC90LrQsDwvdGV4dD48L3N2Zz4='; }} />
                   )}
                 </div>
@@ -130,7 +138,7 @@ export default function Home() {
               onClick={() => setShowModal(true)}
               className='px-12 md:px-16 py-4 md:py-5 glass hover:bg-white/20 rounded-full font-bold text-xl md:text-2xl outline-none transition-all hover:scale-105 active:scale-95 shadow-[0_0_25px_rgba(218,112,214,0.4)] text-white z-10 cursor-pointer'
             >
-              Enter
+              Открыть сюрприз
             </button>
           </div>
         </>
