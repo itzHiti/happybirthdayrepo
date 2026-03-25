@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import { useEffect, useState } from 'react';
 import confetti from 'canvas-confetti';
@@ -242,7 +242,7 @@ export default function Home() {
               Особое послание!
             </h2>
             <div className='glass bg-white/5 rounded-2xl p-6 md:p-8 mb-8 w-full text-lg md:text-xl leading-relaxed text-slate-50 font-medium shadow-inner'>
-              Желаю, чтобы каждый день был полон ярких эмоций, искренних улыбок и огромного счастья! Пусть все твои мечты становятся реальностью, а впереди ждет только самое лучшее! 🎉
+              Желаю крепкого здоровья, спокойствия, уверенности в себе и хороших результатов во всём, пусть рядом будут надёжные люди и всё хорошее возвращается к Вам! 🎉
             </div>
             <button 
               onClick={() => setShowModal(false)}
