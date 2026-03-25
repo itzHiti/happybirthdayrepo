@@ -1,9 +1,10 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import confetti from 'canvas-confetti';
 
 export default function Home() {
+  const audioRef = useRef<HTMLAudioElement>(null);
   const [step, setStep] = useState<'start' | 'timer' | 'birthday'>('start');
   const [timeLeft, setTimeLeft] = useState(10);
   const [timeRemaining, setTimeRemaining] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0, total: 0 });
@@ -12,14 +13,23 @@ export default function Home() {
   const [selectedMedia, setSelectedMedia] = useState<any>(null);
   const name = 'Нұрғазы';
 
+  const toggleMusic = () => {
+    if (audioRef.current) {
+      if (playMusic) {
+        audioRef.current.pause();
+      } else {
+        audioRef.current.play().catch(e => console.log('Autoplay prevented:', e));
+      }
+      setPlayMusic(!playMusic);
+    }
+  };
+
   useEffect(() => {
     if (step === 'timer') {
       if (timeLeft > 0) {
         const timerId = setTimeout(() => {
           setTimeLeft(timeLeft - 1);
-          if (timeLeft === 6 && !playMusic) {
-            setPlayMusic(true);
-          }
+          // Убираем автоматическое включение на 6 секунде, так как Safari этого не разрешает
         }, 1000);
         return () => clearTimeout(timerId);
       } else {
@@ -27,7 +37,7 @@ export default function Home() {
         launchConfetti();
       }
     }
-  }, [step, timeLeft, playMusic]);
+  }, [step, timeLeft]);
 
   useEffect(() => {
     if (step === 'birthday') {
@@ -86,6 +96,11 @@ export default function Home() {
 
   const startTimer = () => {
     setStep('timer');
+    if (audioRef.current && !playMusic) {
+      audioRef.current.play().then(() => {
+        setPlayMusic(true);
+      }).catch(e => console.log('Autoplay prevented:', e));
+    }
   };
 
   const mediaItems = [
@@ -109,19 +124,26 @@ export default function Home() {
       <div className='liquid-blob bg-cyan-500 w-[70vw] h-[70vw] md:w-80 md:h-80 bottom-10 right-[-5%]' style={{ animationDelay: '2s' }} />
       <div className='liquid-blob bg-pink-500 w-[50vw] h-[50vw] md:w-72 md:h-72 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2' style={{ animationDelay: '4s' }} />
 
-      {playMusic && (
-        <audio 
-          src='/assets/HAPPY BIRTHDAY INSTRUMENTAL ( LOFI VERSION ).mp3' 
-          autoPlay 
-          loop 
-          className='hidden'
-        />
+      <audio 
+        ref={audioRef}
+        src='/assets/HAPPY BIRTHDAY INSTRUMENTAL ( LOFI VERSION ).mp3' 
+        loop 
+        className='hidden'
+      />
+
+      {step !== 'start' && (
+        <button 
+          onClick={toggleMusic}
+          className='absolute top-4 right-4 z-[100] w-12 h-12 flex items-center justify-center glass hover:bg-white/20 rounded-full text-2xl transition-all shadow-lg active:scale-95'
+        >
+          {playMusic ? '🔊' : '🔈'}
+        </button>
       )}
 
       {step === 'start' && (
         <div className='z-20 glass-panel rounded-3xl p-8 md:p-12 flex flex-col items-center text-center animate-fade-in transition-all hover:scale-105 mx-4'>
           <h1 className='text-3xl md:text-5xl font-bold mb-4 drop-shadow-lg text-white'>Готовы к сюрпризу?</h1>
-          <p className='text-lg md:text-xl text-cyan-100 mb-8 font-light'>Сделай звук погромче 🔊</p>
+          <p className='text-lg md:text-xl text-cyan-100 mb-8 font-light'>Рекомендуется включить звук 🎶</p>
           <button 
             onClick={startTimer}
             className='px-10 py-4 glass hover:bg-white/20 rounded-full font-bold text-xl backdrop-blur-md transition-all shadow-[0_0_20px_rgba(255,255,255,0.2)] active:scale-95 text-white outline-none cursor-pointer'
