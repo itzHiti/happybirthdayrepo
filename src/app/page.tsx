@@ -154,13 +154,13 @@ export default function Home() {
                 </div>
                 <div className='w-[1px] h-12 md:h-24 bg-gradient-to-b from-white/60 to-white/20 z-10'></div>
                 <div 
-                  className='p-1.5 md:p-2 glass rounded-sm shadow-2xl transform rotate-3 hover:rotate-0 hover:scale-110 transition-all pointer-events-auto z-20 mt-0 bg-white/20 backdrop-blur-md border border-white/30 md:pb-8 pb-4 origin-top cursor-pointer'
+                  className='p-1.5 md:p-2 glass rounded-sm shadow-2xl transform rotate-3 hover:rotate-0 hover:scale-110 transition-all pointer-events-auto z-20 mt-0 bg-white/20 backdrop-blur-md border border-white/80 md:pb-8 pb-4 origin-top cursor-pointer'
                   onClick={() => setSelectedMedia(media)}
                 >
                   {media.type === 'video' ? (
                     <video src={media.src} autoPlay loop muted playsInline className='w-20 h-28 md:w-40 md:h-52 object-cover rounded shadow-inner bg-black/40' />
                   ) : (
-                    <img src={media.src} alt='Memory Frame' className='w-20 h-28 md:w-40 md:h-52 object-cover rounded shadow-inner bg-black/40'
+                    <img src={media.src} alt='Memory Frame' className='w-24 h-32 md:w-44 md:h-56 object-cover rounded shadow-inner bg-black/40'
                          onError={(e) => { e.currentTarget.src = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4xKSIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMiIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjkpIiBkeT0iLjNlbSIgdGV4dC1hbmNob3I9Im1pZGRsZSI+0JrQsNGA0YLQuNC90LrQsDwvdGV4dD48L3N2Zz4='; }} />
                   )}
                 </div>
