@@ -9,6 +9,7 @@ export default function Home() {
   const [timeRemaining, setTimeRemaining] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0, total: 0 });
   const [showModal, setShowModal] = useState(false);
   const [playMusic, setPlayMusic] = useState(false);
+  const [selectedMedia, setSelectedMedia] = useState<any>(null);
   const name = 'Нұрғазы';
 
   // 10-second timer to transition from 'timer' to 'birthday'
@@ -145,12 +146,19 @@ export default function Home() {
         <>
           <div className='absolute inset-0 pointer-events-none z-10 overflow-hidden'>
             {mediaItems.map((media) => (
-              <div key={media.id} className={`absolute flex flex-col items-center opacity-70 ${media.class}`} style={{ left: media.left, top: media.top }}>
+              <div 
+                key={media.id} 
+                className={`absolute flex flex-col items-center transition-all duration-500 ${media.class} ${selectedMedia?.id === media.id ? 'opacity-0 scale-50 pointer-events-none' : 'opacity-70'}`} 
+                style={{ left: media.left, top: media.top }}
+              >
                 <div className='balloon shadow-xl' style={{ backgroundColor: media.color, zIndex: 30 }}>
                   <div className='balloon-shine'></div>
                 </div>
                 <div className='w-[1px] h-12 md:h-24 bg-gradient-to-b from-white/60 to-white/20 z-10'></div>
-                <div className='p-1.5 md:p-2 glass rounded-sm shadow-2xl transform rotate-3 hover:rotate-0 transition-transform pointer-events-auto z-20 mt-0 bg-white/20 backdrop-blur-md border border-white/30 pb-4 md:pb-8 origin-top'>
+                <div 
+                  className='p-1.5 md:p-2 glass rounded-sm shadow-2xl transform rotate-3 hover:rotate-0 hover:scale-110 transition-all pointer-events-auto z-20 mt-0 bg-white/20 backdrop-blur-md border border-white/30 md:pb-8 pb-4 origin-top cursor-pointer'
+                  onClick={() => setSelectedMedia(media)}
+                >
                   {media.type === 'video' ? (
                     <video src={media.src} autoPlay loop muted playsInline className='w-20 h-28 md:w-40 md:h-52 object-cover rounded shadow-inner bg-black/40' />
                   ) : (
@@ -243,6 +251,30 @@ export default function Home() {
               className='w-full py-4 bg-gradient-to-r from-pink-500/80 to-purple-500/80 hover:from-pink-500 hover:to-purple-500 rounded-full font-bold text-xl transition-all shadow-[0_0_20px_rgba(255,105,180,0.5)] text-white cursor-pointer outline-none'
             >
               Закрыть
+            </button>
+          </div>
+        </div>
+      )}
+
+      {selectedMedia && (
+        <div 
+          className='fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/80 backdrop-blur-md transition-all animate-fade-in cursor-pointer'
+          onClick={() => setSelectedMedia(null)}
+        >
+          <div 
+            className='relative max-w-4xl max-h-[90vh] w-full flex justify-center items-center animate-fade-in group cursor-default transform scale-100 transition-transform duration-500'
+            onClick={(e) => e.stopPropagation()}
+          >
+            {selectedMedia.type === 'video' ? (
+              <video src={selectedMedia.src} autoPlay loop controls playsInline className='max-w-full max-h-[85vh] object-contain rounded-2xl shadow-[0_0_60px_rgba(255,255,255,0.2)] pointer-events-auto' />
+            ) : (
+              <img src={selectedMedia.src} alt='Full Memory' className='max-w-full max-h-[85vh] object-contain rounded-2xl shadow-[0_0_60px_rgba(255,255,255,0.2)] pointer-events-auto' />
+            )}
+            <button 
+              onClick={() => setSelectedMedia(null)}
+              className='absolute -top-12 right-0 md:-right-12 md:top-0 text-white/50 hover:text-white text-4xl p-2 transition-colors outline-none pointer-events-auto'
+            >
+              &times;
             </button>
           </div>
         </div>
