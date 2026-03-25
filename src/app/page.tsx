@@ -242,7 +242,7 @@ export default function Home() {
               Особое послание!
             </h2>
             <div className='glass bg-white/5 rounded-2xl p-6 md:p-8 mb-8 w-full text-lg md:text-xl leading-relaxed text-slate-50 font-medium shadow-inner'>
-              Желаю крепкого здоровья, спокойствия, уверенности в себе и хороших результатов во всём, пусть рядом будут надёжные люди и всё хорошее возвращается к Вам! 🎉
+              Ценю и уважаю Вас, братан. Желаю крепкого здоровья, спокойствия, уверенности в себе и хороших результатов во всём, пусть рядом будут надёжные люди и всё хорошее возвращается к Вам! 🎉
             </div>
             <button 
               onClick={() => setShowModal(false)}
