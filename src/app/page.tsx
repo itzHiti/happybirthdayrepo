@@ -17,6 +17,9 @@ export default function Home() {
       if (timeLeft > 0) {
         const timerId = setTimeout(() => {
           setTimeLeft(timeLeft - 1);
+          if (timeLeft === 6 && !playMusic) {
+            setPlayMusic(true);
+          }
         }, 1000);
         return () => clearTimeout(timerId);
       } else {
@@ -24,7 +27,7 @@ export default function Home() {
         launchConfetti();
       }
     }
-  }, [step, timeLeft]);
+  }, [step, timeLeft, playMusic]);
 
   useEffect(() => {
     if (step === 'birthday') {
@@ -83,7 +86,6 @@ export default function Home() {
 
   const startTimer = () => {
     setStep('timer');
-    setPlayMusic(true);
   };
 
   const mediaItems = [
@@ -108,13 +110,12 @@ export default function Home() {
       <div className='liquid-blob bg-pink-500 w-[50vw] h-[50vw] md:w-72 md:h-72 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2' style={{ animationDelay: '4s' }} />
 
       {playMusic && (
-        <div className='hidden'>
-          <iframe 
-            src='https://www.youtube.com/embed/uagxFiGwps0?autoplay=1&controls=0&playsinline=1' 
-            allow='autoplay; encrypted-media'
-            title='Music'
-          />
-        </div>
+        <audio 
+          src='/assets/HAPPY BIRTHDAY INSTRUMENTAL ( LOFI VERSION ).mp3' 
+          autoPlay 
+          loop 
+          className='hidden'
+        />
       )}
 
       {step === 'start' && (
